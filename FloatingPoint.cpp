@@ -10,4 +10,6 @@ int main(){
 
     cout<<"Euro "<<int(euro)<<endl; //Parte euro con cast
     cout<<"Centesimi "<<round((euro-int(euro))*100)<<endl; //Parte centesimi con calcolo matematico
+
+    return 0;
 }
