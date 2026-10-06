@@ -2,59 +2,68 @@
 
 using namespace std;
 
-int calcoli_binari(int b1, int b2){
-    int cifra_b1 = 0;
-    int cifra_b2 = 0;
-    int somma = 0;
-    int prodotto = 0;
-    int b1_prodotto = b1;
-    int b2_prodotto = b2;
+int somma_binaria(int b1, int b2) {
+    int risultato = 0;
+    int posizione = 1;
+    int riporto = 0;
 
-    while ((b1 > 0) && (b2 > 0)){
-        cifra_b1 = b1 % 10;
-        cifra_b2 = b2 % 10;
+    while (b1 > 0 || b2 > 0 || riporto > 0) {
+        int cifra1 = b1 % 10;
+        int cifra2 = b2 % 10;
+
+        int somma = cifra1 + cifra2 + riporto;
+
+        if (somma == 0) {
+            riporto = 0;
+        }
+        else if (somma == 1) {
+            risultato += posizione;
+            riporto = 0;
+        }
+        else if (somma == 2) {
+            riporto = 1;
+        }
+        else {
+            risultato += posizione;
+            riporto = 1;
+        }
+
         b1 /= 10;
         b2 /= 10;
-        if (somma != 1) somma = cifra_b1 || cifra_b2;
-        if ((cifra_b1 == 1) && (cifra_b2 == 1)){
-            cout<<0;
-            somma = 0;
-
-        }
-        else {
-            cout<<somma;
-        }
+        posizione *= 10;
     }
 
-    cout<<endl;
-
-    cifra_b1 = 0;
-    cifra_b2 = 0;
-
-    while ((b1_prodotto > 0) && (b2_prodotto > 0)){
-        cifra_b1 = b1_prodotto % 10;
-        cifra_b2 = b2_prodotto % 10;
-        b1_prodotto /= 10;
-        b2_prodotto /= 10;
-        somma = cifra_b1 || cifra_b2;
-        if ((cifra_b1 == 1) && (cifra_b2 == 1)){
-            cout<<0;
-            somma = 0;
-
-        }
-        else {
-
-        }
-    }
-
+    return risultato;
 }
 
-int main(){
-    int b1 = 0;
-    int b2 = 0;
+int prodotto_binario(int b1, int b2) {
+    int risultato = 0;
+    int moltiplicatore = 1; // Usato per "shiftare" i numeri (x1, x10, x100)
 
-    cin>>b1>>b2;
+    while (b2 > 0) {
+        int cifra = b2 % 10;
 
+        if (cifra == 1) {
+            // Calcola il prodotto parziale aggiungendo gli zeri necessari
+            int prodotto_parziale = b1 * moltiplicatore;
+            // Somma il risultato parziale usando l'addizione binaria
+            risultato = somma_binaria(risultato, prodotto_parziale);
+        }
+
+        b2 /= 10;
+        moltiplicatore *= 10;
+    }
+
+    return risultato;
+}
+
+int main() {
+    int b1, b2;
+
+    cin >> b1 >> b2;
+
+    cout << "Somma: " << somma_binaria(b1, b2) << endl;
+    cout << "Prodotto: " << prodotto_binario(b1, b2) << endl;
 
     return 0;
 }
