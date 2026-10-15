@@ -6,11 +6,11 @@ int parola (char a[], int len, int n, char b[]){
     int cont = 0;
     bool found = false;
     int z = 0;
-    for (int i = 0; i<len - 1; i++){
-        if (a[i] == ' ' && a[i + 1] != ' '){
+    for (int i = 0; i<len; i++){
+        if (a[i] != ' ' && ((i == 0) || (a[i - 1] == ' '))){
             cont ++;
             if (cont == n){
-                for (int j = i + 1; a[j] != ' '; j++){
+                for (int j = i; (j < len) && (a[j] != ' '); j++){
                     b[z] = a[j];
                     z++;
                 }
