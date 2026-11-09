@@ -23,7 +23,34 @@ void scambia(int &a, int &b){
 
 }
 
+void ordina (int n[], int len){
+
+    for (int i = 0; i<len - 1; i++){
+        for (int j = 0; j < len - i - 1; j++){
+            if (n[j] > n[j+1]){
+                scambia(n[j], n[j+1]);
+            }
+        }
+    }
+}
+
+#define len 4
+
 int main(){
+    int n[len];
+
+    n[0] = 1;
+    n[1] = 3;
+    n[2] = 2;
+    n[3] = 4;
+
+    ordina(n, len);
+
+    for (int i = 0; i<len; i++)cout<<n[i]<<" ";
+    cout<<endl;
+
+
+
     int *p;
 
     int a = 4;
