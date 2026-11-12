@@ -61,6 +61,35 @@ int sum_array(int a[], int len){
     
 }
 
+int sum_array_tail(int a[], int len, int state){
+    if (len <= 0) return state;
+    else return sum_array_tail(a, len - 1, state + a[len - 1]);
+}
+
+int sum_array_tail_it(int a[], int len, int state){
+    for (int i = 0; i < len; i++) state += a[i];
+    return state;
+}
+
+int square_radiz(int n, int i){
+    if ((i * i) > n) return i - 1;
+    else return square_radiz(n, i + 1);
+
+    
+}
+
+int research(int v, const int a[], int min_index, int max_index){
+    if (min_index > max_index) return -1;
+    else{
+        int mid = (max_index + min_index)/2;
+        if (a[mid] == v) return mid;
+        else if (a[mid] == v) return research(v, a, min_index, mid - 1);
+        else return research(v, a, mid + 1, max_index);
+    }
+}
+
+int research_it(int v, const int a[], int min_index, int max_index){}
+
 plist create_list(int n) {
     if (n == 0)
         return NULL;
@@ -90,6 +119,11 @@ int main() {
     int a[len];
 
     int sum = 0;
+
+    int sum_ric = 0;
+    int sum_ite = 0;
+
+    int radiz = 0;
 
     for (int i = 0; i<len; i++) a[i] = i + 1;
 
@@ -121,6 +155,16 @@ int main() {
     n = values_sum(n);
 
     cout<<n<<endl;
+
+    sum_ric = sum_array_tail(a, len, sum_ric);
+    sum_ite = sum_array_tail_it(a, len, sum_ite);
+
+    radiz = square_radiz(400, 0);
+
+    cout<<sum_ric<<endl;
+    cout<<sum_ite<<endl;
+    
+    cout<<radiz<<endl;
 
     return 0;
 }
