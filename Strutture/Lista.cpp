@@ -115,6 +115,135 @@ void delete_list(plista p){
     }
 }
 
+plista remove_last(plista head){
+    plista p = head;
+    if (head == NULL)return NULL;
+    if (head -> next == NULL){
+        delete_list(head);
+        return NULL;
+    } 
+    while ((p->next)->next != NULL){
+        p = p -> next;
+    }
+    delete p -> next;
+    p -> next = NULL;
+
+    return head;
+
+}
+
+plista remove_doubles(plista head){
+    if (head == NULL) return NULL;
+    plista p1 = head;
+    plista p2 = p1 -> next;
+    plista p2old = p1;
+    for (int i = 0; p1 != NULL; i++){
+        for (int j = 0; p2 != NULL; j++){
+            if (p2 -> val == p1 -> val){
+                p2old -> next = p2 -> next;
+                delete p2;
+                p2 = p2old -> next;
+            }
+            else{
+                p2old = p2;
+                p2 = p2 -> next;
+            }
+        }
+        p1 = p1 -> next;
+        if (p1 != NULL){
+            p2 = p1 -> next;
+            p2old = p1;
+        }
+    }
+    return head;
+}
+
+plista revert(plista h) {
+
+    plista tmp_old = NULL;
+    plista tmp = NULL;
+
+    while (h != NULL) {
+
+        tmp = h;
+        h = h->next;
+
+        tmp->next = tmp_old;
+
+        tmp_old = tmp;
+    }
+
+    return(tmp);
+}
+
+plista remove_multiples(plista head, int n){
+    plista p = head;
+    plista pold = NULL;
+
+    while (p != NULL){
+        if (p->val % n == 0){
+            if (pold == NULL){
+                head = p->next;
+                delete p;
+                p = head;
+            }
+            else{
+                pold->next = p->next;
+                delete p;
+                p = pold->next;
+            }
+        }
+        else{
+            pold = p;
+            p = p->next;
+        }
+    }
+
+    return head;
+}
+
+void crivelloEratostene(bool A[], int n){
+    for (int i = 0; i < n; i++)
+        A[i] = true;
+
+    A[0] = false;
+    A[1] = false;
+
+    for (int i = 2; i < n; i++){
+        if (A[i]){
+            for (int j = 2 * i; j < n; j = j + i)
+                A[j] = false;
+        }
+    }
+
+    for (int i = 2; i < n; i++){
+        if (A[i])
+            cout << i << " ";
+    }
+}
+
+void revert_chars(){
+    char c;
+    plista p = NULL;
+    plista q;
+
+    cin >> c;
+
+    while (c != '.'){
+        q = new lista;
+        q->val = c;
+        q->next = p;
+        p = q;
+
+        cin >> c;
+    }
+
+    while (p != NULL){
+        cout << p->val;
+        p = p->next;
+    }
+}
+
 plista crea_lista_ricorsiva(int n){
     plista h = NULL;
     for (int i = 0; i < n; i++){
@@ -165,9 +294,43 @@ int main(){
     //Cancellare un valore dalla lista
     head = deleted_value(head, 41);
 
+    head = ordered_insert(head, 41);
+
+    head = ordered_insert(head, 24);
+
+    head = ordered_insert(head, 24);
+
+    head = ordered_insert(head, 24);
+
+    head = remove_doubles(head);
+
+    head = ordered_insert(head, 12);
+
+    head = ordered_insert(head, 36);
+
+    head = ordered_insert(head, 64);
+
+    head = remove_multiples(head, 12);
+
+    //bool a[4];
+    //crivelloEratostene(a, 4);
+    //revert_chars();
+
+    //head = revert(head);
+
+    head = remove_last(head);
+
+    plista print2 = head;
+    while (print2 != NULL){
+        cout<<print2 -> val<<" ";
+        print2 = print2 -> next;
+    }
+
     //Eliminare tutta la lista
-    delete_list(head);
-    head = NULL;
+    //delete_list(head);
+    //head = NULL;
+
+    //Sei al punto 23, remove_last
 
 
 
