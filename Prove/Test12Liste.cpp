@@ -35,10 +35,12 @@ plista inserimento_ordinato(plista p, int x){
         p = p -> next;
     }
     plista tmp = new lista;
+    //plista tmp = head;
     tmp -> val = x;
     tmp -> next = p;
     if (pold == NULL) return tmp;
     pold -> next = tmp;
+    // tmp = pold -> next;
 
     return head;
 }
