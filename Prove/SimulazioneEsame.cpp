@@ -22,7 +22,7 @@ int get_maxdup_ric(int A[], int length, int res){
     int cont = 1;
     if (length == 0) return 1;
     else{
-        for (int i = i; i<length; i++){
+        for (int i = 1; i<length; i++){
             if (A[0] == A[i]) cont++;
         }
     }
@@ -110,7 +110,7 @@ plist rimuovi_attivita(plist A, char nome[]){
 			plist tmp = p -> next;
 			delete p;
 			Aold -> next = tmp;
-		}
+		//}
 		A = A -> next;    
 
 
